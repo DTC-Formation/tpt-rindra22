@@ -1,4 +1,4 @@
-<img src="/screenshots/logo.svg" width="50">
+<img src="/screenshots/logo.svg" width="150">
 
 # Theme : Memories
 
@@ -19,4 +19,10 @@
 
 - Utilisation d'une architecture MVVM (Modèle-Vue-VueModèle) pour la structure du code
 - Utilisation de l'API Laravel pour obtenir les données des articles
+
+# Screenhots Design
+
+<img src="screenshots/1.png">
+<img src="screenshots/2.png">
+<img src="screenshots/3.png">
 
