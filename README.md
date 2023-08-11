@@ -14,6 +14,8 @@
 
 - Commentaires : Les utilisateurs peuvent commenter les articles, lire les commentaires et interagir avec les autres utilisateurs.
 - Intégration de la recherche en temps réel pour les articles via l'API
+- Stockage des données : Base de données relationnelle MySQL pour stocker les utilisateurs, les articles, les commentaires, J'aime.
+- Système de likes
 
 # Coté developpement
 
