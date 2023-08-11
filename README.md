@@ -17,9 +17,13 @@
 
 # Coté developpement
 
-- Utilisation d'une architecture MVVM (Modèle-Vue-VueModèle) pour la structure du code
-- Utilisation de l'API Laravel pour obtenir les données des articles
+- Utilisation d'une architecture MVVM (Modèle-Vue-VueModèle) pour la structure du code (Flutter 3.10.6)
+- Utilisation de l'API Laravel Framework 10.17.0 pour obtenir les données des articles
 
+# Requis
+- Dart SDK version: 3.0.6
+- Flutter 3.10.6
+- Laravel 10 requires a minimum PHP version of 8.1.
 # Screenhots Design
 
 <img src="screenshots/1.png">
