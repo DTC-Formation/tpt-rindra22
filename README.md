@@ -26,7 +26,7 @@
 - Dart SDK version: 3.0.6
 - Flutter 3.10.6
 - Laravel 10 requires a minimum PHP version of 8.1.
-# Screenhots Design
+# Screenshots
 
 <img src="screenshots/1.png">
 <img src="screenshots/2.png">
