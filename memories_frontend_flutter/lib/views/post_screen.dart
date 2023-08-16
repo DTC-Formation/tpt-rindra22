@@ -14,6 +14,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:memories_frontend_flutter/views/widgets/text_field.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:readmore/readmore.dart';
 
 class PostScreen extends StatefulWidget {
     const PostScreen({super.key});
@@ -200,13 +201,22 @@ class _PostScreenState extends State<PostScreen> {
                                                         SizedBox(height: 10,),
                                         
                                                         // add description with view more
-                                                        AutoSizeText(
+                                                        /* AutoSizeText(
                                                             '${post.description}',
                                                             style: const TextStyle(
                                                                 fontSize: 16
                                                             ),
                                                             maxLines: 3,
                                                             overflow: TextOverflow.ellipsis,
+                                                        ), */
+                                                        ReadMoreText(
+                                                            '${post.description}',
+                                                            trimLines: 3,
+                                                            colorClickableText: Colors.pink,
+                                                            trimMode: TrimMode.Line,
+                                                            trimCollapsedText: 'Show more',
+                                                            trimExpandedText: 'Show less',
+                                                            moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                                                         ),
                             
                                                         SizedBox(height: 10,),
