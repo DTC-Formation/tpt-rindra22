@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ImagePost;
 use App\Models\Post;
 use App\Traits\SaveImageTrait;
 use Illuminate\Http\Request;
@@ -13,7 +14,16 @@ class PostController extends Controller
     public function index()
     {
         return response([
-            'posts' => Post::orderBy('created_at', 'desc')->with('user:id,name,image')->withCount('comments', 'likes')
+            'posts' => Post::orderBy('created_at', 'desc')
+            ->with(
+                [
+                    'user:id,name,image',
+                    'imagePosts' => function($image){
+                        return $image->select('id', 'post_id', 'path')->get();
+                    }
+                ]
+            )
+            ->withCount('comments', 'likes','imagePosts')
             ->with('likes', function($like){
                 return $like->where('user_id', auth()->user()->id)
                     ->select('id', 'user_id', 'post_id')->get();
@@ -25,7 +35,7 @@ class PostController extends Controller
     public function show($id)
     {
         return response([
-            'post' => Post::where('id', $id)->withCount('comments', 'likes')->get()
+            'post' => Post::where('id', $id)->withCount('comments', 'likes','imagePosts')->get()
         ], 200);
     }
 
@@ -36,14 +46,13 @@ class PostController extends Controller
             'description' => 'required|string',
         ]);
 
-        $image = $this->save($request->image, 'posts');
-
         $post = Post::create([
             'title' => $attrs['title'],
             'description' => $attrs['description'],
-            'user_id' => auth()->user()->id,
-            'image' => $image
+            'user_id' => auth()->user()->id
         ]);
+
+        $this->save($request->images, 'posts',$post->id);
 
         return response([
             'message' => 'Post created.',
@@ -76,12 +85,9 @@ class PostController extends Controller
         ]);
 
         // update image
-        if($request->image)
+        if($request->path)
         {
-            $image = $this->save($request->image, 'posts');
-            $post->update([
-                'image' => $image
-            ]);
+            $this->save($request->path, 'posts',$post->id,true);
         }
 
         $post->update([
@@ -115,6 +121,7 @@ class PostController extends Controller
 
         $post->comments()->delete();
         $post->likes()->delete();
+        $post->imagePosts()->delete();
         $post->delete();
 
         return response([

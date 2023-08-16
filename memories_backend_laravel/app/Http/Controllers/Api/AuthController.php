@@ -87,7 +87,7 @@ class AuthController extends Controller
 
         if($request->image)
         {
-            $attrs['image'] = $this->save($request->image, 'profiles');
+            $attrs['image'] = $this->saveProfil($request->image, 'profiles');
             auth()->user()->update([
                 'image' => $attrs['image']
             ]);
