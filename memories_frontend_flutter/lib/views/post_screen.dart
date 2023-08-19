@@ -74,7 +74,7 @@ class _PostScreenState extends State<PostScreen> {
 
 
 
-  // post like dislik
+    // post like dislik
     Future<bool> _handlePostLikeDislike(bool isLiked,int postId,) async {
         ApiResponse response = await likeUnlikePost(postId);
 
@@ -215,8 +215,9 @@ class _PostScreenState extends State<PostScreen> {
                                                             colorClickableText: Colors.pink,
                                                             trimMode: TrimMode.Line,
                                                             trimCollapsedText: 'Show more',
-                                                            trimExpandedText: 'Show less',
+                                                            trimExpandedText: ' Show less',
                                                             moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                                                            lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)
                                                         ),
                             
                                                         SizedBox(height: 10,),

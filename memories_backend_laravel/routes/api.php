@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,4 +44,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     // Like
     Route::post('/posts/{id}/likes', [LikeController::class, 'likeOrUnlike']);
+
+    // Search
+    Route::get('/search', [SearchController::class, 'search']);
 });
