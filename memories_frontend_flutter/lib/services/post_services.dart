@@ -104,48 +104,6 @@ Future<ApiResponse> createPost({required String title, String? description, List
     return apiResponse;
 }
 
-// Edit post
-/* Future<ApiResponse> editPost({required int postId, required String title, String? description, String? image}) async {
-    ApiResponse apiResponse = ApiResponse();
-    try {
-        String token = await getToken();
-        final response = await http.put(Uri.parse('$postsURL/$postId'),
-        headers: {
-            'Accept': 'application/json',
-            'Connection': 'Keep-Alive',
-            'Authorization': 'Bearer $token'
-        }, body:
-            image != null ? {
-                'title': title,
-                'description': description,
-                'image': image
-            } : {
-                'title': title,
-                'description': description
-            });
-
-       // print(response);
-
-        switch(response.statusCode){
-            case 200:
-                apiResponse.data = jsonDecode(response.body)['message'];
-                break;
-            case 403:
-                apiResponse.error = jsonDecode(response.body)['message'];
-                break;
-            case 401:
-                apiResponse.error = unauthorized;
-                break;
-            default:
-                apiResponse.error = somethingWentWrong;
-                break;
-        }
-  }
-  catch (e){
-    apiResponse.error = serverError;
-  }
-  return apiResponse;
-} */
 Future<ApiResponse> editPost({required int postId, required String title, String? description, List? images}) async{
     ApiResponse apiResponse = ApiResponse();
     try {
@@ -242,5 +200,42 @@ Future<ApiResponse> likeUnlikePost(int postId) async {
     catch (e){
         apiResponse.error = serverError;
     }
+    return apiResponse;
+}
+
+// Search posts
+Future<ApiResponse> searchPost(String? query) async{
+    ApiResponse apiResponse = ApiResponse();
+    try {
+        String token = await getToken();
+        final response = await http.get(Uri.parse('$searchURL/?query=$query'),
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token'
+        });
+
+        switch(response.statusCode){
+            case 200:
+                final responseData = jsonDecode(response.body);
+                if (responseData.containsKey('results')) {
+                    final results = responseData['results'];
+                    final postsList = results.map((post) => Post.fromJson(post)).toList();
+                    apiResponse.data = postsList;
+                } else {
+                    apiResponse.error = 'No posts found in response.';
+                }
+                break;
+            case 401:
+                apiResponse.error = unauthorized;
+                break;
+            default:
+                apiResponse.error = somethingWentWrong;
+                break;
+        }
+    }
+    catch (e){
+        apiResponse.error = serverError;
+    }
+
     return apiResponse;
 }

@@ -8,6 +8,7 @@ const logoutURL = '${baseURLAPI}logout';
 const userURL = '${baseURLAPI}user';
 const postsURL = '${baseURLAPI}posts';
 const commentsURL = '${baseURLAPI}comments';
+const searchURL = '${baseURLAPI}search';
 
 // ----- Errors -----
 const serverError = 'Server error';

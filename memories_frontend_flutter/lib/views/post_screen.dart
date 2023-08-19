@@ -25,9 +25,10 @@ class PostScreen extends StatefulWidget {
 
 class _PostScreenState extends State<PostScreen> {
 
+    final TextEditingController _searchController = TextEditingController();
     List<dynamic> _postList = [];
     int userId = 0;
-    bool _loading = true;
+    bool _loading = true, _searching = false;
     int _current = 0;
 
     // get all posts
@@ -38,7 +39,7 @@ class _PostScreenState extends State<PostScreen> {
         if(response.error == null){
             setState(() {
                 _postList = response.data as List<dynamic>;
-                print(_postList);
+                // print(_postList);
                 _loading = _loading ? !_loading : _loading;
             });
         }
@@ -59,6 +60,28 @@ class _PostScreenState extends State<PostScreen> {
         ApiResponse response = await deletePost(postId);
         if (response.error == null){
             retrievePosts();
+        }
+        else if(response.error == unauthorized){
+            logout().then((value) => {
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Login()), (route) => false)
+            });
+        } 
+        else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('${response.error}')
+            ));
+        }
+    }
+
+    void _handleSearchPost(String query) async {
+        ApiResponse response = await searchPost(query);
+        if (response.error == null){
+            setState(() {
+                if(response.data != null){
+                    _postList = response.data as List<dynamic>;
+                    // print("Search result: ${_postList}");
+                }
+            });
         }
         else if(response.error == unauthorized){
             logout().then((value) => {
@@ -111,10 +134,29 @@ class _PostScreenState extends State<PostScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                         AppTextField(
+                            controller: _searchController,
                             prefixIcon: Icons.search_outlined,
+                            suffixIcon: _searching ? Icons.close : null,
+                            suffixIconCallBack: () {
+                                setState(() {
+                                    _searching = false;
+                                });
+                                retrievePosts();
+                                _searchController.clear();
+                            },
                             focusNode: FocusNode(),
-                            hintText: 'Search Memories',
+                            hintText: 'Search Memories (title or description)',
                             isEnabled: true,
+                            onChanged: (value) {
+                                if(value.isEmpty){
+                                    retrievePosts();
+                                    _searching = false;
+                                }
+                                else {
+                                    _handleSearchPost(value);
+                                    _searching = true;
+                                }
+                            }
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.65,
