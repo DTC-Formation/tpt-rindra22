@@ -158,7 +158,7 @@ class _CommentScreenState extends State<CommentScreen> {
                                                                     height: 30,
                                                                     decoration: BoxDecoration(
                                                                         image: comment.user!.image != null ? DecorationImage(
-                                                                        image: NetworkImage('${comment.user!.image}'),
+                                                                        image: NetworkImage('$storage${comment.user!.image}'),
                                                                         fit: BoxFit.cover
                                                                         ) : null,
                                                                         borderRadius: BorderRadius.circular(15),

@@ -9,7 +9,6 @@ import 'package:memories_frontend_flutter/views/post_screen.dart';
 import 'package:memories_frontend_flutter/views/profil_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:memories_frontend_flutter/views/widgets/text_field.dart';
 
 String currentSelectedPage = 'Memories';
 class HomePageScreen extends StatefulWidget {
@@ -44,7 +43,7 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
         ),
         const Tab(
             icon: Icon(Icons.person_outline),
-            text: "Profil",
+            text: "Profile",
         ),
     ];
 

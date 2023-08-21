@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:memories_frontend_flutter/helpers/config.dart';
+import 'package:memories_frontend_flutter/models/api_response.dart';
+import 'package:memories_frontend_flutter/models/user.dart';
+import 'package:memories_frontend_flutter/services/user_services.dart';
+import 'package:memories_frontend_flutter/views/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
     const SplashScreen({super.key});
@@ -12,6 +17,25 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
     late AnimationController _controller;
     late Animation<Offset> imageanimation;
+
+    void _getUserDetail() async{
+        ApiResponse response = await getUserDetail();
+        if(response.error == null){
+            User user = response.data as User;
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('${user.name}')
+            ));
+            Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+        }
+        else if(response.error == unauthorized){
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Login()), (route) => false);
+        }
+        else{
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('${response.error}')
+            ));
+        }
+    }
 
     @override
     void initState() {
@@ -29,9 +53,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                 )
             );
         _controller.forward();
-        Future.delayed(const Duration(seconds: 2), () {
+        /* Future.delayed(const Duration(seconds: 2), () {
             Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
-        });
+        }); */
+        Future.delayed(const Duration(seconds: 2), _getUserDetail);
         super.initState();
     }
 

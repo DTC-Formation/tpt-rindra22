@@ -8,6 +8,7 @@ import 'package:memories_frontend_flutter/models/post.dart';
 import 'package:memories_frontend_flutter/services/post_services.dart';
 import 'package:memories_frontend_flutter/services/user_services.dart';
 import 'package:memories_frontend_flutter/views/comment_screen.dart';
+import 'package:memories_frontend_flutter/views/edit_form.dart';
 import 'package:memories_frontend_flutter/views/login_screen.dart';
 import 'package:memories_frontend_flutter/views/post_form.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -94,8 +95,6 @@ class _PostScreenState extends State<PostScreen> {
             ));
         }
     }
-
-
 
     // post like dislik
     Future<bool> _handlePostLikeDislike(bool isLiked,int postId,) async {
@@ -218,7 +217,7 @@ class _PostScreenState extends State<PostScreen> {
                                                                     ],
                                                                     onSelected: (val){
                                                                         if(val == 'edit'){
-                                                                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PostForm(
+                                                                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EditForm(
                                                                                 title: 'Edit Memories',
                                                                                 post: post,
                                                                             )));

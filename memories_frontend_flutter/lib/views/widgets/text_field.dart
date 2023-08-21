@@ -36,7 +36,7 @@ class AppTextField extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return Container(
-            margin: const EdgeInsetsDirectional.only(bottom: 20),
+            margin: const EdgeInsetsDirectional.only(bottom: 16,start: 5,end: 5),
             child: TextField(
                 enabled: isEnabled ?? true,
                 autofocus: autoFocus ?? false,
