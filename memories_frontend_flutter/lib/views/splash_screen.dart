@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         /* Future.delayed(const Duration(seconds: 2), () {
             Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
         }); */
-        Future.delayed(const Duration(seconds: 2), _getUserDetail);
+        Future.delayed(const Duration(seconds: 1), _getUserDetail);
         super.initState();
     }
 

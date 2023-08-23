@@ -10,7 +10,6 @@ import 'package:memories_frontend_flutter/services/user_services.dart';
 import 'package:memories_frontend_flutter/views/comment_screen.dart';
 import 'package:memories_frontend_flutter/views/edit_form.dart';
 import 'package:memories_frontend_flutter/views/login_screen.dart';
-import 'package:memories_frontend_flutter/views/post_form.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:memories_frontend_flutter/views/widgets/text_field.dart';
@@ -275,7 +274,7 @@ class _PostScreenState extends State<PostScreen> {
                                                                 height: 180
                                                             )
                                                         : SizedBox(height: post.image != null ? 0 : 10,),
-                                                            post.imagePosts != null ?
+                                                            post.imagePosts?.length != 0 ?
                                                                 Column(
                                                                     children: [
                                                                         CarouselSlider(

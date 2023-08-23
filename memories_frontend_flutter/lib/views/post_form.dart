@@ -76,32 +76,30 @@ class _PostFormState extends State<PostForm> {
             }
         }
 
-        if (existingImagePaths.isNotEmpty) {
+        /* if (existingImagePaths.isNotEmpty) {} */
+        ApiResponse response = await createPost(
+            title: title,
+            description: description,
+            images: existingImagePaths,
+        );
+        // print('Server Response: ${response.data}');
+        // print('Server Error: ${response.error}');
 
-            ApiResponse response = await createPost(
-                title: title,
-                description: description,
-                images: existingImagePaths,
-            );
-           // print('Server Response: ${response.data}');
-           // print('Server Error: ${response.error}');
-
-            if(response.error ==  null || response.data == null) {
-                Navigator.pushNamed(context, '/home');
-            }
-            else if (response.error == unauthorized){
-                logout().then((value) => {
-                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Login()), (route) => false)
-                });
-            }
-            else {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('${response.error}')
-                ));
-                setState(() {
-                    _loading = !_loading;
-                });
-            }
+        if(response.error ==  null || response.data == null) {
+            Navigator.pushNamed(context, '/home');
+        }
+        else if (response.error == unauthorized){
+            logout().then((value) => {
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Login()), (route) => false)
+            });
+        }
+        else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('${response.error}')
+            ));
+            setState(() {
+                _loading = !_loading;
+            });
         }
     }
 
