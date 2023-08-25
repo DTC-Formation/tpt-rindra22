@@ -6,6 +6,8 @@
 
 <img src="screenshots/qr_code.png" width="200px">
 
+## Or download the apk file from [here](https://drive.google.com/file/d/1EYMIAL4XFLZ_fx1-Rlq1u7MYe53Gvqdn/view?usp=sharing)
+
 # Fonctionnalités
 
 - Inscription et Connexion : Les utilisateurs peuvent créer un compte et se connecter à l'application à l'aide d'informations d'identification.
