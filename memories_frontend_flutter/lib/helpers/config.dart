@@ -1,5 +1,5 @@
 const String imageLogoPath = 'assets/images/logo/';
-const isProduction = false;
+const isProduction = true;
 const baseURL = isProduction ? 'https://memories.panera.mg/' : 'http://192.168.205.2:8000/';
 const storage = '${baseURL}storage/';
 const baseURLAPI = '${baseURL}api/';

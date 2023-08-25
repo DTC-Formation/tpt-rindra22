@@ -2,6 +2,10 @@
 
 # Theme : Memories
 
+## Scan QR Code to download the app
+
+<img src="screenshots/qr_code.png" width="100%">
+
 # Fonctionnalités
 
 - Inscription et Connexion : Les utilisateurs peuvent créer un compte et se connecter à l'application à l'aide d'informations d'identification.
