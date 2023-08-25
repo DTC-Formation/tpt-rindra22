@@ -4,7 +4,7 @@
 
 ## Scan QR Code to download the app
 
-<img src="screenshots/qr_code.png" width="100%">
+<img src="screenshots/qr_code.png" width="200px">
 
 # Fonctionnalités
 
